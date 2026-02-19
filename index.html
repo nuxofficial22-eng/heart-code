@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>─ HeartCodeGank ⎙</title>
+
+<style>
+:root{
+--glass:rgba(255,255,255,.08);
+--border:rgba(255,255,255,.14);
+--accent:#ef4444; /* merah */
+--radius:28px;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+
+body{
+min-height:100vh;
+background:url("https://risrfgvolfxuavpsmfjn.supabase.co/storage/v1/object/public/uploads/1771532868388-8m22oo9q.jpg") center center / cover no-repeat fixed;
+color:#fff;
+overflow:hidden;
+}
+
+/* LOADING */
+#loading{
+position:fixed;inset:0;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+background:#020617;
+z-index:9999
+}
+.loader{
+width:46px;height:46px;
+border:3px solid #ffffff14;
+border-top:3px solid var(--accent);
+border-radius:50%;
+animation:spin 1s linear infinite
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+#loading span{
+margin-top:14px;
+font-size:11px;
+letter-spacing:4px;
+opacity:.6
+}
+
+.loading-text{
+  margin-top:14px;
+  font-size:11px;
+  letter-spacing:4px;
+  opacity:.6;
+  animation:fade 1.8s ease-in-out infinite;
+}
+
+.dots::after{
+  content:"";
+  animation:dots 1.5s steps(4,end) infinite;
+}
+
+@keyframes dots{
+  0%{content:""}
+  25%{content:"."}
+  50%{content:".."}
+  75%{content:"..."}
+  100%{content:""}
+}
+
+@keyframes fade{
+  0%,100%{opacity:.3}
+  50%{opacity:1}
+}
+
+/* PAGE */
+.page{
+display:none;
+min-height:100vh;
+padding:20px;
+display:flex;
+justify-content:center;
+align-items:center
+}
+.card{
+width:100%;
+max-width:420px;
+background:var(--glass);
+backdrop-filter:blur(30px);
+border:1px solid var(--border);
+border-radius:var(--radius);
+padding:26px;
+box-shadow:
+0 40px 120px rgba(0,0,0,.75),
+inset 0 1px 0 rgba(255,255,255,.05);
+animation:fadeUp .5s ease
+}
+@keyframes fadeUp{
+from{opacity:0;transform:translateY(20px)}
+to{opacity:1;transform:none}
+}
+
+
+.product-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.btn-tele-mini{
+  padding:6px 14px;
+  border-radius:999px;
+  font-size:12px;
+  font-weight:600;
+  text-decoration:none;
+  color:#fff;
+  background:linear-gradient(135deg,#ef4444,#b91c1c);
+  transition:.25s;
+  box-shadow:0 4px 12px white(0,136,204,.3);
+}
+
+.btn-tele-mini:hover{
+  transform:translateY(-2px);
+  box-shadow:0 6px 16px white(0,136,204,.45);
+}
+
+.btn-tele-mini:active{
+  transform:scale(.95);
+}
+/* TEXT */
+.title{
+text-align:center;
+font-size:22px;
+font-weight:700;
+letter-spacing:.4px;
+margin-bottom:6px
+}
+.sub{
+text-align:center;
+font-size:13px;
+opacity:.65;
+margin-bottom:22px
+}
+
+
+.btn-tele-mini {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: #b91c1c;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.tg-icon {
+  display: inline-block;
+}
+/* HERO */
+.hero{
+width:100%;
+border-radius:22px;
+margin-bottom:22px;
+box-shadow:0 20px 60px rgba(0,0,0,.6)
+}
+
+/* BUTTON */
+.btn{
+position:relative;
+overflow:hidden;
+width:100%;
+border:none;
+border-radius:20px;
+padding:14px;
+font-weight:600;
+letter-spacing:.3px;
+background:rgba(255,255,255,.06);
+color:#fff;
+cursor:pointer;
+display:flex;
+align-items:center;
+justify-content:center;
+gap:10px;
+transition:.25s;
+box-shadow:inset 0 1px 0 rgba(255,255,255,.05)
+}
+.btn:hover{background:rgba(255,255,255,.1)}
+.btn:active{transform:scale(.96)}
+
+.btn-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  background: linear-gradient(135deg, #ef4444, #b91c1c);
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(185, 28, 28, 0.3);
+}
+
+.btn-back:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(185, 28, 28, 0.4);
+}
+
+.btn-back svg {
+  transition: transform 0.3s ease;
+}
+
+.btn-back:hover svg {
+  transform: translateX(-4px);
+}
+
+.btn{
+position:relative;
+overflow:hidden;
+width:100%;
+border-radius:20px;
+padding:14px;
+font-weight:600;
+letter-spacing:.3px;
+background:rgba(255,255,255,.05); /* sama seperti product */
+border:1px solid var(--border);     /* sama seperti product */
+color:#fff;
+cursor:pointer;
+display:flex;
+align-items:center;
+justify-content:center;
+gap:10px;
+transition:.25s;
+box-shadow:none;
+}
+
+.btn:hover{
+background:rgba(255,255,255,.08);
+transform:translateY(-2px);
+}
+
+.btn:active{
+transform:scale(.97);
+}
+
+/* RIPPLE */
+.ripple{
+position:absolute;
+border-radius:50%;
+transform:scale(0);
+animation:ripple .6s linear;
+background:rgba(255,255,255,.4)
+}
+@keyframes ripple{
+to{transform:scale(4);opacity:0}
+}
+
+.btn svg{
+width:20px;
+height:20px;
+stroke:#fff;
+stroke-width:1.8;
+fill:none;
+}
+
+/* PRODUCT */
+.product{
+padding:16px;
+border-radius:20px;
+background:rgba(255,255,255,.05);
+border:1px solid var(--border);
+margin-bottom:14px;
+transition:.25s
+}
+.product:hover{
+background:rgba(255,255,255,.08);
+transform:translateY(-2px)
+}
+.product h4{
+    font-size:15px;
+    font-weight:600;
+    text-align:center;
+}
+.product small{opacity:.6}
+
+/* PAYMENT */
+.payment{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:14px;
+border-radius:20px;
+background:rgba(255,255,255,.05);
+border:1px solid var(--border);
+margin-bottom:12px;
+position:relative
+}
+.copy{
+width:38px;height:38px;
+border:none;border-radius:14px;
+background:rgba(255,255,255,.1);
+cursor:pointer;
+display:flex;
+align-items:center;
+justify-content:center
+}
+.copy svg{width:18px;height:18px}
+.copied{
+position:absolute;
+bottom:-18px;right:12px;
+background:#020617;
+font-size:11px;
+padding:4px 10px;
+border-radius:999px;
+opacity:0;
+transform:translateY(6px);
+transition:.3s
+}
+.copied.show{
+opacity:1;
+transform:none
+}
+
+/* ZOOM */
+#zoom{
+position:fixed;inset:0;
+background:rgba(0,0,0,.95);
+display:none;
+justify-content:center;
+align-items:center;
+z-index:999
+}
+#zoom img{
+max-width:90%;
+border-radius:28px;
+animation:zoomIn .35s ease
+}
+@keyframes zoomIn{
+from{opacity:0;transform:scale(.9)}
+to{opacity:1;transform:none}
+}
+
+.space{height:14px}
+</style>
+</head>
+
+<body oncontextmenu="return false">
+
+<!-- PIN LOCK -->
+<div id="pinLock" style="
+position:fixed;
+inset:0;
+background:#020617;
+display:flex;
+justify-content:center;
+align-items:center;
+z-index:10000;
+flex-direction:column;
+">
+
+<div style="
+background:rgba(255,255,255,.05);
+padding:30px;
+border-radius:20px;
+backdrop-filter:blur(20px);
+border:1px solid rgba(255,255,255,.1);
+text-align:center;
+width:90%;
+max-width:320px;
+">
+
+<h3 style="margin-bottom:15px;">Masukkan Password</h3>
+
+<input type="password" id="pinInput" placeholder="Masukkan Password"
+style="
+width:100%;
+padding:12px;
+border-radius:12px;
+border:none;
+outline:none;
+text-align:center;
+font-size:16px;
+margin-bottom:15px;
+">
+
+<button onclick="checkPin()" class="btn">
+Masuk
+</button>
+
+<p id="pinError" style="color:#ef4444;font-size:12px;margin-top:10px;display:none;">
+Password Salah
+</p>
+
+</div>
+</div>
+
+<div id="loading">
+  <div class="loader"></div>
+<span class="loading-text">
+  Loading<span class="dots"></span>
+</span>
+</div>
+
+<!-- HOME -->
+<div class="page" id="home">
+<div class="card">
+
+<div class="title">─ HeartCodeGank ⎙</div>
+<div class="sub"></div>
+
+<video class="hero" autoplay loop muted playsinline>
+  <source src="https://risrfgvolfxuavpsmfjn.supabase.co/storage/v1/object/public/uploads/1771341044619-8p09dpwh.mp4" type="video/mp4">
+</video>
+
+ <button class="btn" onclick="openPage('produk')">
+<svg viewBox="0 0 24 24">
+  <defs>
+    <linearGradient id="clipGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ef4444"/>
+      <stop offset="100%" stop-color="#b91c1c"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Body clipboard -->
+  <rect x="6" y="5" width="12" height="15" rx="2.5"
+        fill="none"
+        stroke="#ffffff"
+        stroke-width="1.7"
+        stroke-linecap="round"
+        stroke-linejoin="round"/>
+
+  <!-- Clip top -->
+  <rect x="9" y="3" width="6" height="4" rx="1.5"
+        fill="url(#clipGrad)"/>
+
+  <!-- Lines (paper content) -->
+  <line x1="9" y1="10" x2="15" y2="10"
+        stroke="#ffffff"
+        stroke-width="1.5"
+        stroke-linecap="round"/>
+
+  <line x1="9" y1="13" x2="15" y2="13"
+        stroke="#ffffff"
+        stroke-width="1.5"
+        stroke-linecap="round"/>
+
+  <line x1="9" y1="16" x2="13" y2="16"
+        stroke="#ffffff"
+        stroke-width="1.5"
+        stroke-linecap="round"/>
+</svg>
+Member HeartCode
+</button>
+
+<div class="space"></div>
+
+<button class="btn whatsapp" onclick="window.location.href='https://t.me/+kWIIw9-MD8gyOWNl'">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Screen -->
+  <rect x="3" y="5" width="18" height="12" rx="2"/>
+  
+  <!-- Stand -->
+  <path d="M8 21h8"/>
+  <path d="M12 17v4"/>
+</svg>
+Telegram Grub HeartCode
+</button>
+
+</div>
+</div>
+
+
+<div class="page" id="produk">
+  <div class="card">
+
+    <div class="title">─ HeartCodeGank ⎙</div>
+
+<div class="product">
+  <div class="product-row">
+    <h4>@NuxVerify</h4>
+    <a href="https://t.me/TheNuxVerify" target="_blank" class="btn-tele-mini">
+      <svg class="tg-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" width="18" height="18">
+        <path fill="currentColor" d="M176.3,81.8l-20.7,97.7
+        c-1.6,7-5.7,8.7-11.5,5.4l-31.8-23.5l-15.3,14.8c-1.7,1.7-3.1,3.1-6.3,3.1l2.3-32.8l59.8-54
+        c2.6-2.3-0.6-3.6-4-1.3l-74,46.6l-31.9-10c-7-2.2-7.1-7.1,1.5-10.5l124.4-48.1
+        C173.1,68.3,178.1,72,176.3,81.8z" />
+      </svg>
+      Telegram Nuxx
+    </a>
+  </div>
+</div>
+
+<div class="product">
+  <div class="product-row">
+    <h4>@FyzzModss</h4>
+    <a href="https://t.me/FyzzModss" target="_blank" class="btn-tele-mini">
+      <svg class="tg-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" width="18" height="18">
+        <path fill="currentColor" d="M176.3,81.8l-20.7,97.7
+        c-1.6,7-5.7,8.7-11.5,5.4l-31.8-23.5l-15.3,14.8c-1.7,1.7-3.1,3.1-6.3,3.1l2.3-32.8l59.8-54
+        c2.6-2.3-0.6-3.6-4-1.3l-74,46.6l-31.9-10c-7-2.2-7.1-7.1,1.5-10.5l124.4-48.1
+        C173.1,68.3,178.1,72,176.3,81.8z" />
+      </svg>
+      Telegram Fyzz
+    </a>
+  </div>
+</div>
+
+<div class="product">
+  <div class="product-row">
+    <h4>@RizzNotDevvv</h4>
+    <a href="https://t.me/RizzNotDevvv" target="_blank" class="btn-tele-mini">
+      <svg class="tg-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" width="18" height="18">
+        <path fill="currentColor" d="M176.3,81.8l-20.7,97.7
+        c-1.6,7-5.7,8.7-11.5,5.4l-31.8-23.5l-15.3,14.8c-1.7,1.7-3.1,3.1-6.3,3.1l2.3-32.8l59.8-54
+        c2.6-2.3-0.6-3.6-4-1.3l-74,46.6l-31.9-10c-7-2.2-7.1-7.1,1.5-10.5l124.4-48.1
+        C173.1,68.3,178.1,72,176.3,81.8z" />
+      </svg>
+      Telegram Rizz
+    </a>
+  </div>
+</div>
+
+
+
+<button class="btn-back" onclick="openPage('home')">
+  <svg viewBox="0 0 24 24" width="18" height="18">
+    <path d="M15 18l-6-6 6-6"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"/>
+  </svg>
+  Kembali
+</button>
+
+
+
+</div>
+</div>
+
+<!-- ZOOM -->
+<div id="zoom" onclick="closeZoom()">
+<img src="https://img1.pixhost.to/images/10526/665966488_spidernux.jpg">
+</div>
+
+<script>
+const pages = document.querySelectorAll(".page");
+const correctPin = "heartcode444"; // GANTI PIN DI SINI
+
+/* SEMBUNYIKAN SEMUA PAGE DI AWAL */
+pages.forEach(p => p.style.display = "none");
+
+/* SEMBUNYIKAN LOADING DI AWAL */
+document.getElementById("loading").style.display = "none";
+
+/* ===== LOGIN ===== */
+function checkPin(){
+  const input = document.getElementById("pinInput").value;
+  const error = document.getElementById("pinError");
+
+  if(input === correctPin){
+    document.getElementById("pinLock").style.display = "none";
+    startLoading();
+  } else {
+    error.style.display = "block";
+    document.getElementById("pinInput").value = "";
+  }
+}
+
+/* ===== LOADING SETELAH LOGIN ===== */
+function startLoading(){
+  document.getElementById("loading").style.display = "flex";
+  setTimeout(()=>{
+    document.getElementById("loading").style.display="none";
+    openPage("home");
+  },1200);
+}
+
+/* ===== NAVIGASI PAGE ===== */
+function openPage(id){
+  pages.forEach(p=>p.style.display="none");
+  document.getElementById(id).style.display="flex";
+}
+
+/* ===== COPY ===== */
+function copyText(id,btn){
+  navigator.clipboard.writeText(document.getElementById(id).innerText);
+  const c=btn.parentElement.querySelector(".copied");
+  c.classList.add("show");
+  setTimeout(()=>c.classList.remove("show"),1200);
+}
+
+/* ===== ZOOM ===== */
+function openZoom(){
+  document.getElementById("zoom").style.display="flex";
+}
+function closeZoom(){
+  document.getElementById("zoom").style.display="none";
+}
+
+/* ===== RIPPLE EFFECT ===== */
+document.querySelectorAll(".btn").forEach(btn=>{
+  btn.addEventListener("click",function(e){
+    const circle=document.createElement("span");
+    circle.classList.add("ripple");
+    const size=Math.max(btn.clientWidth,btn.clientHeight);
+    circle.style.width=circle.style.height=size+"px";
+    circle.style.left=e.offsetX-size/2+"px";
+    circle.style.top=e.offsetY-size/2+"px";
+    btn.appendChild(circle);
+    setTimeout(()=>circle.remove(),600);
+  });
+});
+</script>
+
+</body>
+</html>
